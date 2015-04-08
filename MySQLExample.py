@@ -9,7 +9,10 @@ db = MySQLdb.connect(host="localhost", user="root", db="SportiStats")
 curs = db.cursor()
 
 try:
-    #insert fake users into the database
+    #execute a single SQL statement
+    curse.execute("""INSERT INTO user (username, password) VALUES ('tester', '123456')"""
+    
+    #insert many fake users into the database
     curs.executemany("""INSERT INTO user (username, password)VALUES (%s, %s)""", [("will", "123465"),("jason", "123465"), ("zach", "123465"), ("thomas", "123465"), ("alex", "123465"), ("jacob", "123465"), ("buthole", "123465")])
 
     #for any statement besides select, THIS MUST BE INCLUDED, or you're just going to have a bad time
