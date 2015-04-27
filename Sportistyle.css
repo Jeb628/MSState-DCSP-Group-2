@@ -1,0 +1,36 @@
+
+body {
+	background-color:#669999
+	
+}
+
+table {
+	border-top:medium;
+	border-right:medium;
+	border-top-color:black;
+	border-right-color:black;
+	border-top-style:outset;
+	border-right-style:outset;
+}
+
+h1 {
+	text-align:center;
+}
+
+form {
+	text-align:right;
+}
+
+img {
+	display:block;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+Pre.blocktext {
+	margin-right:auto;
+	margin-left:3em;
+	margin-bottom:3em;
+	margin-top:auto;
+	width:10em;
+}
