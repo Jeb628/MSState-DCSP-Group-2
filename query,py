@@ -1,0 +1,147 @@
+import _mysql_exceptions
+import MySQLdb
+import sys
+
+def main():
+    results = queryPlayerSearch("Will McRae'; SELECT * FROM players")
+
+    for result in results:
+        print result
+
+    queryWithParts("baseball", "homerun", ">", "2", "SELECT")
+
+def queryPlayerSearch(playername):
+    results = list()
+
+    db = MySQLdb.connect(host="localhost", user="root", db="SportiStats")
+
+    results.append(getBaseball(db, playername))
+    results.append(getBasketball(db, playername))
+    results.append(getFootball(db, playername))
+
+    db.close()
+    return results
+
+def getBaseball(db, playername):
+    results = list()
+    queryString = "SELECT * FROM player JOIN baseball ON playerID = bs_playerID WHERE name = '" + playername + "'"
+    print (queryString)
+
+    #db = MySQLdb.connect(host="localhost", user="root", db="SportiStats")
+
+    curs = db.cursor()
+    try:
+        curs.execute(queryString)
+
+    except _mysql_exceptions.Exception, e:
+        print str(e)
+        return str(e)
+    finally:
+        #for result in curs.fetchone():
+            #results.append(result)
+        while True:
+            result = curs.fetchone()
+            if result == None:
+                break
+            else:
+                results.append(result)
+
+    #db.close()
+
+    return results
+
+def getBasketball(db, playername):
+    results = list()
+    queryString = "SELECT * FROM player JOIN basketball ON playerID = bk_playerID WHERE name = '" + playername + "'"
+    print (queryString)
+
+    #db = MySQLdb.connect(host="localhost", user="root", db="SportiStats")
+
+    curs = db.cursor()
+    try:
+        curs.execute(queryString)
+
+    except _mysql_exceptions.Exception, e:
+        print str(e)
+        sys.exit(1)
+    finally:
+        #for result in curs.fetchone():
+            #results.append(result)
+        while True:
+            result = curs.fetchone()
+            if result == None:
+                break
+            else:
+                results.append(result)
+
+    #db.close()
+
+    return results
+
+def getFootball(db, playername):
+    results = list()
+    queryString = "SELECT * FROM player JOIN football ON playerID = fb_playerID WHERE name = '" + playername + "'"
+    print (queryString)
+
+    #db = MySQLdb.connect(host="localhost", user="root", db="SportiStats")
+
+    curs = db.cursor()
+    try:
+        curs.execute(queryString)
+
+    except _mysql_exceptions.Exception, e:
+        print str(e)
+        sys.exit(1)
+    finally:
+        #for result in curs.fetchone():
+            #results.append(result)
+        while True:
+            result = curs.fetchone()
+            if result == None:
+                break
+            else:
+                results.append(result)
+    #db.close()
+
+    return results
+
+def queryWithParts(sport, fieldName, comparetor, value, queryType):
+    results = list()
+    db = MySQLdb.connect(host="localhost", user="root", db="SportiStats")
+
+    #queryString = queryType +" * FROM " + sport +" WHERE "+ fieldName +" "+ comparetor +" "+ value
+    queryString = queryType +" * FROM player JOIN "+ sport+ " ON playerID = bs_playerID WHERE "+ fieldName +" "+ comparetor +" "+ value
+
+    print queryString
+
+    curs = db.cursor()
+    try:
+        curs.execute(queryString)
+
+    except _mysql_exceptions.Exception, e:
+        print str(e)
+        sys.exit(1)
+    finally:
+        while True:
+            result = curs.fetchone()
+            if result == None:
+                break
+            else:
+                results.append(result)
+
+
+
+
+        #for result in curs.fetchone():
+            #print result
+            #results.append(result)
+
+   # print results
+
+    #return queryString
+
+
+
+
+if __name__ == "__main__":
+    main()
