@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="sportistyle.css">
+
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+<title>Sportistats</title>
+</head>
+
+<body onload=hideQuery()>
+
+<!-- Javascript -->
+<script>
+function hideQuery() {
+document.getElementById("query2").style.display = 'none';
+document.getElementById("query3").style.display = 'none';
+document.getElementById("number2").style.display = 'none';
+document.getElementById("number3").style.display = 'none';
+}
+function football() {
+var x=document.getElementById("stat1");
+var y=document.getElementById("stat2");
+var z=document.getElementById("stat3");
+x.setAttribute("value", "Touchdown");
+y.setAttribute("value", "Interception");
+z.setAttribute("value", "YardsRun");
+x.setAttribute("onclick", defaultNumber());
+y.setAttribute("onclick", defaultNumber());
+z.setAttribute("onclick", defaultNumber());
+x.innerHTML = "Touchdown";
+y.innerHTML = "Interception";
+z.innerHTML = "Yards Run";
+}
+function baseball() {
+var x=document.getElementById("stat1");
+var y=document.getElementById("stat2");
+var z=document.getElementById("stat3");
+x.setAttribute("value", "Homeruns");
+y.setAttribute("value", "RBIs");
+z.setAttribute("value", "Average");
+x.setAttribute("onclick", defaultNumber());
+y.setAttribute("onclick", defaultNumber());
+z.setAttribute("onclick", averageNumber());
+x.innerHTML = "Homeruns";
+y.innerHTML = "RBIs";
+z.innerHTML = "Average";
+}
+function basketball() {
+var x=document.getElementById("stat1");
+var y=document.getElementById("stat2");
+var z=document.getElementById("stat3");
+x.setAttribute("value", "PointsPerGame");
+y.setAttribute("value", "ReboundsPerGame");
+z.setAttribute("value", "AssistsPerGame");
+x.setAttribute("onclick", defaultNumber());
+y.setAttribute("onclick", defaultNumber());
+z.setAttribute("onclick", defaultNumber());
+x.innerHTML = "Points Per Game";
+y.innerHTML = "Rebounds Per Game";
+z.innerHTML = "Assists Per Game";
+}
+function football2() {
+var x=document.getElementById("stat21");
+var y=document.getElementById("stat22");
+var z=document.getElementById("stat23");
+x.setAttribute("value", "Touchdown");
+y.setAttribute("value", "Interception");
+z.setAttribute("value", "YardsRun");
+x.setAttribute("onclick", defaultNumber2());
+y.setAttribute("onclick", defaultNumber2());
+z.setAttribute("onclick", defaultNumber2());
+x.innerHTML = "Touchdown";
+y.innerHTML = "Interception";
+z.innerHTML = "Yards Run";
+}
+function baseball2() {
+var x=document.getElementById("stat21");
+var y=document.getElementById("stat22");
+var z=document.getElementById("stat23");
+x.setAttribute("value", "Homeruns");
+y.setAttribute("value", "RBIs");
+z.setAttribute("value", "Average");
+x.setAttribute("onclick", defaultNumber2());
+y.setAttribute("onclick", defaultNumber2());
+z.setAttribute("onclick", averageNumber2());
+x.innerHTML = "Homeruns";
+y.innerHTML = "RBIs";
+z.innerHTML = "Average";
+}
+function basketball2() {
+var x=document.getElementById("stat21");
+var y=document.getElementById("stat22");
+var z=document.getElementById("stat23");
+x.setAttribute("value", "PointsPerGame");
+y.setAttribute("value", "ReboundsPerGame");
+z.setAttribute("value", "AssistsPerGame");
+x.setAttribute("onclick", defaultNumber2());
+y.setAttribute("onclick", defaultNumber2());
+z.setAttribute("onclick", defaultNumber2());
+x.innerHTML = "Points Per Game";
+y.innerHTML = "Rebounds Per Game";
+z.innerHTML = "Assists Per Game";
+}
+function football3() {
+var x=document.getElementById("stat31");
+var y=document.getElementById("stat32");
+var z=document.getElementById("stat33");
+x.setAttribute("value", "Touchdown");
+y.setAttribute("value", "Interception");
+z.setAttribute("value", "YardsRun");
+x.setAttribute("onclick", defaultNumber3());
+y.setAttribute("onclick", defaultNumber3());
+z.setAttribute("onclick", defaultNumber3());
+x.innerHTML = "Touchdown";
+y.innerHTML = "Interception";
+z.innerHTML = "Yards Run";
+}
+function baseball3() {
+var x=document.getElementById("stat31");
+var y=document.getElementById("stat32");
+var z=document.getElementById("stat33");
+x.setAttribute("value", "Homeruns");
+y.setAttribute("value", "RBIs");
+z.setAttribute("value", "Average");
+x.setAttribute("onclick", defaultNumber3());
+y.setAttribute("onclick", defaultNumber3());
+z.setAttribute("onclick", averageNumber3());
+x.innerHTML = "Homeruns";
+y.innerHTML = "RBIs";
+z.innerHTML = "Average";
+}
+function basketball3() {
+var x=document.getElementById("stat31");
+var y=document.getElementById("stat32");
+var z=document.getElementById("stat33");
+x.setAttribute("value", "PointsPerGame");
+y.setAttribute("value", "ReboundsPerGame");
+z.setAttribute("value", "AssistsPerGame");
+x.setAttribute("onclick", defaultNumber3());
+y.setAttribute("onclick", defaultNumber3());
+z.setAttribute("onclick", defaultNumber3());
+x.innerHTML = "Points Per Game";
+y.innerHTML = "Rebounds Per Game";
+z.innerHTML = "Assists Per Game";
+}
+function averageNumber() {
+var a=document.getElementById("number");
+a.setAttribute("max", 1);
+a.setAttribute("step", .001);
+}
+function defaultNumber() {
+var a=document.getElementById("number");
+a.setAttribute("max", 3000);
+a.setAttribute("step", 1);
+}
+function averageNumber2() {
+var a=document.getElementById("number2");
+a.setAttribute("max", 1);
+a.setAttribute("step", .001);
+}
+function defaultNumber2() {
+var a=document.getElementById("number2");
+a.setAttribute("max", 3000);
+a.setAttribute("step", 1);
+}
+function averageNumber3() {
+var a=document.getElementById("number3");
+a.setAttribute("max", 1);
+a.setAttribute("step", .001);
+}
+function defaultNumber3() {
+var a=document.getElementById("number3");
+a.setAttribute("max", 3000);
+a.setAttribute("step", 1);
+}
+function addQuery() {
+if (document.getElementById("query2").style.display == 'none') {
+	document.getElementById("query2").style.display = 'inline';
+	document.getElementById("number2").style.display = 'inline';
+	return 0;
+}
+else if (document.getElementById("query3").style.display == 'none') {
+	document.getElementById("query3").style.display = 'inline';
+	document.getElementById("number3").style.display = 'inline';
+	return 0;
+}
+}
+</script>
+
+<!-- Title -->
+<img class="displayed" src="Sportilogo.png" alt="Sportistats" style="width:419px;height:93px;">
+
+<!-- Login Form -->
+<form method="post" action="/login.aspx?">
+	<div class="auto-style1">
+<input id="username" name="username" value="Username" onclick='getElementById("username").setAttribute("value", "")' type="text" />
+<input id="password" name="password" value="Password" onclick='getElementById("password").setAttribute("value", "")' type="password" />
+<input name="submit" type="submit" value="Login" />
+</div>
+</form>
+
+<!-- Tabs -->
+<table >
+<tr>
+<td> <input type="button" onclick="footballTable()" value="Football"> </td>
+<td> <input type="button" onclick="baseballTable()" value="Baseball"> </td>
+<td> <input type="button" onclick="basketballTable()" value="Basketball"> </td>
+</tr>
+</table>
+
+<hr />
+<br>
+<br>
+
+<!-- Search by player name -->
+<form id="search" method="post" action="localhost">
+<input id="searchbar" name="Search" type="text" value="Search by Player Name" size="50" onclick='getElementById("searchbar").setAttribute("value", "")' required/>
+<input name="Submit" type="submit" value="Search" />
+</form>
+
+<br>
+<br>
+
+<!-- Query Form -->
+<form id="query" class="blocktext" method="post" action="localhost">
+
+<input type="button" value="+" onclick=addQuery()>
+<!-- Query_1 -->
+<select name="Sport">
+	<option value="Football" selected="selected" onclick="football()">Football</option>
+	<option value="Baseball" onclick="baseball()">Baseball</option>
+	<option value="Basketball" onclick="basketball()">Basketball</option>
+</select>
+<select>
+	<option id="stat1" selected="selected" value="Touchdown" onclick="">Touchdown</option>
+	<option id="stat2" value="Interception" onclick="">Interception</option>
+	<option id="stat3" value="YardsRun" onclick="">Yards Run</option>	
+</select>
+<select>
+	<option value="&lt" selected="selected">&lt;</option>
+	<option value="&gt">&gt;</option>
+	<option value="=">=</option>
+</select>
+
+<input id="number" type="number" name="number"  min="0" max="3000" step="1">
+
+<input type="submit" value="Query">
+
+<br>
+
+<!-- Query_2 -->
+<select id="query2" >
+	<option id="and" selected="selected">And</option>
+	<option id="or">Or</option>
+</select>
+<select id="query2" >
+	<option value="Football" selected="selected" onc=football2()>Football</option>
+	<option value="Baseball" onchange=baseball2()>Baseball</option>
+	<option value="Basketball" onclick=basketball2()>Basketball</option>
+</select>
+<select id="query2" >
+	<option id="stat21" selected="selected" value="Touchdown" onclick="">Touchdown</option>
+	<option id="stat22" value="Interception" onclick="">Interception</option>
+	<option id="stat23" value="YardsRun" onclick="">Yards Run</option>
+</select>
+<select id="query2" >
+	<option value="&lt" selected="selected">&lt;</option>
+	<option value="&gt">&gt;</option>
+	<option value="=">=</option>
+</select>
+
+<input id="number2" type="number" name="number"  min="0" max="3000" step="1" >
+
+<br>
+
+<!-- Query3 -->
+<select id="query3" >
+	<option id="and" selected="selected">And</option>
+	<option id="or">Or</option>
+</select>
+<select id="query3" >
+	<option value="Football" selected="selected" onclick=football3()>Football</option>
+	<option value="Baseball" onclick=baseball3()>Baseball</option>
+	<option value="Basketball" onclick=basketball3()>Basketball</option>
+</select>
+<select id="query3" >
+	<option id="stat31" selected="selected" value="Touchdown" onclick="">Touchdown</option>
+	<option id="stat32" value="Interception" onclick="">Interception</option>
+	<option id="stat33" value="YardsRun" onclick="">Yards Run</option>
+</select>
+<select id="query3" >
+	<option value="&lt" selected="selected">&lt;</option>
+	<option value="&gt">&gt;</option>
+	<option value="=">=</option>
+</select>
+
+<input id="number3" type="number" name="number"  min="0" max="3000" step="1" >
+
+<br>
+
+</form>
+
+<br>
+<br>
+<br>
+<!-- Ancillary Website Information -->
+<pre class="blocktext">
+Developed by:				
+Jacob Burrell
+Alexander Monet
+Will McRae
+Zach Gibbs
+</pre>
+
+
+</body>
+
+</html>
