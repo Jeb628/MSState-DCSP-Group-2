@@ -316,7 +316,6 @@ class Handler(BaseHTTPRequestHandler):
                     par.append(pwd)
                     try:
 
-                        qstring = "SELECT * FROM User WHERE username = "+ name +" AND password = MD5(" + pwd + ")"
                         ret = query('login', par, None, None)
                         if(ret == 1):
                             ses = hashlib.md5(name)
@@ -362,7 +361,24 @@ class Handler(BaseHTTPRequestHandler):
                     except IOError:
                         p.send_error(404,'File Not Found')
                 elif p.path.startswith("/query.aspx?"):
-
+                    par1 = list()
+                    par2 = list()
+                    par3 = list()
+                    if('q1sports' in posts.keys()):
+                        qtype = posts['q1sport']
+                    if('q1num' in posts.keys()):
+                        par1.append(posts['q1stat'])
+                        par1.append(posts['q1op'])
+                        par1.append(posts['q1num'])
+                    if('q2num' in posts.keys()):
+                        par2.append(posts['q2stat'])
+                        par2.append(posts('q2op'))
+                        par2.append(posts['q2num'])
+                    if('q3num'in posts.keys()):
+                        par3.append(posts['q3stat'])
+                        par3.append(posts['q3op'])
+                        par3.append(posts['q3num'])
+                    print par1, par2, par3
                     try:
 
                         p.send_response(200)
