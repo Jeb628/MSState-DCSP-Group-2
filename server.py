@@ -45,6 +45,8 @@ e.close()
 """
 i.close()
 
+def render():
+    print "render"
 def dtb(query):  # Data Table Build
     global session
     build = ''
@@ -68,8 +70,9 @@ def query(qType, par1, par2, par3):  # Handles Query processing
             return 0
         else:
             return 1
-    elif(qType == 'search'):
-        queryPlayerSearch(db, par1[0])
+    elif(qType == 'Search'):
+        result = queryPlayerSearch(db, par1)
+        return result
     elif(qType == 'qbp'):
         print "QBP"
 
@@ -104,6 +107,7 @@ def checkUser(db, check):
 def queryPlayerSearch(db, playername):
     global begin, end, session
     results = list()
+    print playername
 
    # db = MySQLdb.connect( user="root", passwd="SportiStats", host="localhost",db="sportistats")
 
@@ -117,7 +121,7 @@ def queryPlayerSearch(db, playername):
 def getBaseball(db, playername):
     global begin, end, session
     results = list()
-    queryString = "SELECT * FROM player JOIN baseball ON playerID = bs_playerID WHERE name = '" + playername + "'"
+    queryString = "SELECT * FROM player,baseball WHERE player.playerID = baseball.bs_playerID AND player.name = "+'"' + playername + '"'
     print (queryString)
 
     curs = db.cursor()
@@ -135,13 +139,14 @@ def getBaseball(db, playername):
                 break
             else:
                 results.append(result)
+                print result
 
     return results
 
 def getBasketball(db, playername):
     global begin, end, session
     results = list()
-    queryString = "SELECT * FROM player JOIN basketball ON playerID = bk_playerID WHERE name = '" + playername + "'"
+    queryString = "SELECT * FROM player,basketball WHERE player.playerID = basketball.bk_playerID AND player.name = "+'"' + playername + '"'
     print (queryString)
 
     curs = db.cursor()
@@ -165,7 +170,7 @@ def getBasketball(db, playername):
 def getFootball(db, playername):
     global begin, end, session
     results = list()
-    queryString = "SELECT * FROM player JOIN football ON playerID = fb_playerID WHERE name = '" + playername + "'"
+    queryString = "SELECT * FROM player,football WHERE player.playerID = football.fb_playerID AND player.name = "+'"' + playername + '"'
     print (queryString)
 
     curs = db.cursor()
@@ -183,6 +188,7 @@ def getFootball(db, playername):
                 break
             else:
                 results.append(result)
+                print result
     return results
 
 def queryWithParts(sport, fieldName, comparetor, value, queryType):
@@ -301,7 +307,7 @@ class Handler(BaseHTTPRequestHandler):
                     length = string.atoi(p.headers.dict["content-length"])
                     pr = p.rfile.read(length)
                     posts = urlparse.parse_qs(pr, 0, 0)
-
+                    print posts
                 if p.path.startswith("/login.aspx?"):
                     par = list()
                     name = str(posts['username']).translate(None, "[](){}'")
@@ -341,7 +347,21 @@ class Handler(BaseHTTPRequestHandler):
                     except IOError:
                         p.send_error(404, 'File Not Found')
 
-                elif p.path.startswith("/base.aspx?"):
+                elif p.path.startswith("/search.aspx?"):
+                    par = str(posts['Search']).translate(None, "[](){}'")
+                    search = str(posts['Submit']).translate(None, "[](){}'")
+                    res = query(search, par, None, None)
+
+                    try:
+
+                        p.send_response(200)
+                        p.send_header("Content-type", "text/html")
+                        p.end_headers()
+                        p.wfile.write(index)
+
+                    except IOError:
+                        p.send_error(404,'File Not Found')
+                elif p.path.startswith("/query.aspx?"):
 
                     try:
 
