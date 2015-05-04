@@ -11,84 +11,133 @@ import urlparse
 from mimetypes import guess_type
 import hashlib
 
-global begin, script, title, loginWeb, tabs, search, end, session, index, login_failed
+# HTML Globals
+global begin, script, title, loginWeb, tabs, search, end, index, login_failed
+# Session/Login Global
+global session
+# Data Dump Global
+global ft, bst, bkt
+
+
 session = {}
-"""
+
 b = open("begin_one.html", "r")
 cript = open("script_two.html", "r")
-tit = open("title_three.html" , "r")
+#tit = open("title_three.html" , "r")
 log = open("login_four.html", "r")
 tab = open("tabs_five.html", "r")
 sea = open("search_six.html", "r")
 e = open("last.html", "r")
-"""
+
 login_failed = open("login_fail.html", "r").read()
 i = open("index.html", "r")
-"""
 begin = b.read()
 script = cript.read()
-title = tit.read()
+# title = tit.read()
 loginWeb = log.read()
 tabs = tab.read()
 search = sea.read()
 end = e.read()
-"""
-index = i.read()
-"""
+
+
+
 b.close()
 cript.close()
-tit.close()
+# tit.close()
 log.close()
 tab.close()
 sea.close()
 e.close()
-"""
-i.close()
+#i.close()
+
 
 def render():
     print "render"
 def dtb(query):  # Data Table Build
     global session
     build = ''
-
+    i = 0
     for row in query:
+        if(row):
+            build += '['
+            for column in row:
+                for each in column:
+                    build = build + "'" + str(each).translate(None, "[](){}'") + "',"
+            build = build[:-1]
+            build += ']'
+            build += ','
+            i += 1
+    build = build[:-1]
+    if(build):
+        return build
+    else:
+        return ''
+def dtbp(query):  # Data Table Build
+    global session
+    build = ''
+    for row in query:
+        if(row):
+            build += '['
+            for column in row:
+                build = build + "'" + str(column).translate(None, "[](){}'") + "',"
+            build = build[:-1]
+            build += ']'
+            build += ','
 
-        build += '['
-        for column in row:
-            build = build + "'" + column + "',"
-        build[build.length()-1] = ']'
-        build += ','
-    build[build.length()-1] = ''
-
-    return build
-
+    build = build[:-1]
+    if(build):
+        return build
+    else:
+        return ''
 def query(qType, par1, par2, par3):  # Handles Query processing
     global begin, end, session
     db = MySQLdb.connect( user="root", passwd="SportiStats", host="localhost",db="sportistats")
     if(qType == 'login'):
         if(checkUser(db, par1) == 0):
+            db.close()
             return 0
         else:
+            db.close()
             return 1
     elif(qType == 'Search'):
-        result = queryPlayerSearch(db, par1)
-        return result
+        foot, base, bask = queryPlayerSearch(db, par1)
+        db.close()
+        return foot, base, bask
     elif(qType == 'qbp'):
-        print "QBP"
+        string1 = ""
+        string2 = ""
+        string3 = ""
+        if(par1):
+            sport = par1[0].lower()
+            q1stat = par1[1]
+            q1op = par1[2]
+            q1num = par1[3]
+            if(sport == "football"):
+                sa = "fb"
+            elif(sport == "baseball"):
+                sa = "bs"
+            else:
+                sa = "bk"
+            string1 = sport + "." + q1stat + " " + q1op + " " + q1num
+        if(par2):
+            q2com = par2[0]
+            q2stat = par2[1]
+            q2op = par2[2]
+            q2num = par2[3]
+            string2 = " "+q2com + " " + sport + "." + q2stat + " " + q2op + " " + q2num
+        if(par3):
+            q3com = par3[0]
+            q3stat = par3[1]
+            q3op = par3[2]
+            q3num = par3[3]
+            string3 = " "+q3com + " " + sport + "." + q3stat + " " + q3op + " " + q3num
+        results = queryWithParts(db, sport, sa, string1, string2, string3)
+        db.close()
+        return results
 
-    """
-    results = queryPlayerSearch("SELECT * FROM players")
-
-    for result in results:
-        print result
-
-    queryWithParts("baseball", "homerun", ">", "2", "SELECT")
-    """
 def checkUser(db, check):
     queryString = 'SELECT * FROM user WHERE username = "' + check[0]+'"' +' AND password = MD5("' + check[1]+'")'
-    print queryString
     curs = db.cursor()
-    results = list()
     try:
         curs.execute(queryString)
 
@@ -105,24 +154,28 @@ def checkUser(db, check):
                 return 1
 
 def queryPlayerSearch(db, playername):
-    global begin, end, session
-    results = list()
-    print playername
 
-   # db = MySQLdb.connect( user="root", passwd="SportiStats", host="localhost",db="sportistats")
+    global session
+    # Lists for each sport
+    football = list()
+    basketball = list()
+    baseball = list()
 
-    results.append(getBaseball(db, playername))
-    results.append(getBasketball(db, playername))
-    results.append(getFootball(db, playername))
+    # Query for player name in each table
+    baseball.append(getBaseball(db, playername))
+    basketball.append(getBasketball(db, playername))
+    football.append(getFootball(db, playername))
 
-    db.close()
-    return results
+    # Generate Data Table for each result
+    foot = dtb(football)
+    base = dtb(baseball)
+    bask = dtb(basketball)
+    return foot, base, bask
 
 def getBaseball(db, playername):
     global begin, end, session
     results = list()
     queryString = "SELECT * FROM player,baseball WHERE player.playerID = baseball.bs_playerID AND player.name = "+'"' + playername + '"'
-    print (queryString)
 
     curs = db.cursor()
     try:
@@ -139,7 +192,6 @@ def getBaseball(db, playername):
                 break
             else:
                 results.append(result)
-                print result
 
     return results
 
@@ -147,7 +199,7 @@ def getBasketball(db, playername):
     global begin, end, session
     results = list()
     queryString = "SELECT * FROM player,basketball WHERE player.playerID = basketball.bk_playerID AND player.name = "+'"' + playername + '"'
-    print (queryString)
+
 
     curs = db.cursor()
     try:
@@ -171,7 +223,6 @@ def getFootball(db, playername):
     global begin, end, session
     results = list()
     queryString = "SELECT * FROM player,football WHERE player.playerID = football.fb_playerID AND player.name = "+'"' + playername + '"'
-    print (queryString)
 
     curs = db.cursor()
     try:
@@ -188,17 +239,14 @@ def getFootball(db, playername):
                 break
             else:
                 results.append(result)
-                print result
     return results
 
-def queryWithParts(sport, fieldName, comparetor, value, queryType):
+def queryWithParts(db, sport, sa, s1, s2, s3):
     global begin, end, session
     results = list()
-    db = MySQLdb.connect(host="localhost", user="root",passwd = "SportiStats", db="SportiStats")
 
-    queryString = queryType +" * FROM player JOIN "+ sport+ " ON playerID = bs_playerID WHERE "+ fieldName +" "+ comparetor +" "+ value
+    queryString = "SELECT * from player, "+ sport + " WHERE "+ sport+"."+sa+"_playerID = player.playerID AND " + s1 + s2 + s3
 
-    print queryString
 
     curs = db.cursor()
     try:
@@ -214,17 +262,32 @@ def queryWithParts(sport, fieldName, comparetor, value, queryType):
                 break
             else:
                 results.append(result)
+    ret = dtbp(results)
+    return ret
+def pre(db,sport,sa):
+    results = list()
+    queryString = "SELECT * from player, "+ sport + " WHERE "+ sport+"."+sa+"_playerID = player.playerID"
 
+    curs = db.cursor()
+    try:
+        curs.execute(queryString)
 
+    except _mysql_exceptions.Exception, e:
+        print str(e)
+        return str(e)
+    finally:
 
+        while True:
+            result = curs.fetchone()
+            if result == None:
+                break
+            else:
+                results.append(result)
+    ret = "var " + sport +" = [ "
+    ret += dtbp(results)
+    ret += "];"
+    return ret
 
-        #for result in curs.fetchone():
-            #print result
-            #results.append(result)
-
-   # print results
-
-    #return queryString
 
 class Handler(BaseHTTPRequestHandler):
         def do_HEAD(p):
@@ -234,11 +297,12 @@ class Handler(BaseHTTPRequestHandler):
                 p.end_headers()
 
         def do_GET(p):
-                global begin, script, title, loginWeb, tabs, search, end, session, index
+                global begin, script, title, loginWeb, tabs, search, end,  index
+                global session
+                global bkt, bst, ft
 
                 if p.path.startswith("/foot.aspx?"):
                     splitPath = p.path.split('?')
-                    print(splitPath)
                     try:
                         p.send_response(200)
                         p.send_header("Content-type", "text/html")
@@ -281,13 +345,6 @@ class Handler(BaseHTTPRequestHandler):
                         p.end_headers()
                         for s in requested:
                             p.wfile.write(s)
-                        """
-                        p.send_response(200)
-                        p.send_header('Content-type',mimetype)
-                        p.end_headers()
-                        requested = open(curdir+sep+p.path,"rb")
-                        p.wfile.write(requested.read())
-                        """
                         requested.close()
 
                     except IOError:
@@ -301,13 +358,14 @@ class Handler(BaseHTTPRequestHandler):
                             p.send_error(404, 'File Not Found')
 
         def do_POST(p):  # Handles POST requests
-                global begin, script, title, loginWeb, tabs, search, end, session, index, login_failed
+                global begin, script, title, loginWeb, tabs, search, end, index, login_failed
+                global session
+                global bkt, bst, ft
 
                 if p.headers.dict.has_key('content-length'):
                     length = string.atoi(p.headers.dict["content-length"])
                     pr = p.rfile.read(length)
                     posts = urlparse.parse_qs(pr, 0, 0)
-                    print posts
                 if p.path.startswith("/login.aspx?"):
                     par = list()
                     name = str(posts['username']).translate(None, "[](){}'")
@@ -364,21 +422,26 @@ class Handler(BaseHTTPRequestHandler):
                     par1 = list()
                     par2 = list()
                     par3 = list()
-                    if('q1sports' in posts.keys()):
-                        qtype = posts['q1sport']
+                    qtype = "qbp"
+                    if('q1sport' in posts.keys()):
+                        par1.append(str(posts['q1sport']).translate(None, "[](){}'"))
                     if('q1num' in posts.keys()):
-                        par1.append(posts['q1stat'])
-                        par1.append(posts['q1op'])
-                        par1.append(posts['q1num'])
+                        par1.append(str(posts['q1stat']).translate(None, "[](){}'"))
+                        par1.append(str(posts['q1op']).translate(None, "[](){}'"))
+                        par1.append(str(posts['q1num']).translate(None, "[](){}'"))
+                    else:
+                        print "Need better query bro"
                     if('q2num' in posts.keys()):
-                        par2.append(posts['q2stat'])
-                        par2.append(posts('q2op'))
-                        par2.append(posts['q2num'])
+                        par2.append(str(posts['q2cmp']).translate(None, "[](){}'"))
+                        par2.append(str(posts['q2stat']).translate(None, "[](){}'"))
+                        par2.append(str(posts['q2op']).translate(None, "[](){}'"))
+                        par2.append(str(posts['q2num']).translate(None, "[](){}'"))
                     if('q3num'in posts.keys()):
-                        par3.append(posts['q3stat'])
-                        par3.append(posts['q3op'])
-                        par3.append(posts['q3num'])
-                    print par1, par2, par3
+                        par3.append(str(posts['q3cmp']).translate(None, "[](){}'"))
+                        par3.append(str(posts['q3stat']).translate(None, "[](){}'"))
+                        par3.append(str(posts['q3op']).translate(None, "[](){}'"))
+                        par3.append(str(posts['q3num']).translate(None, "[](){}'"))
+                    results = query(qtype, par1, par2, par3)
                     try:
 
                         p.send_response(200)
@@ -401,10 +464,17 @@ class Handler(BaseHTTPRequestHandler):
                     except IOError:
                         p.send_error(404, 'File Not Found')
 
+db = MySQLdb.connect( user="root", passwd="SportiStats", host="localhost",db="sportistats")
+ft = pre(db, "football", "fb")
+bst = pre(db, "baseball", "bs")
+bkt = pre(db, "basketball", "bk")
+db.close()
+
+index = begin + ft + bst + bkt + script + loginWeb + tabs + search + end
 
 class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
         """Handle Requests in Threads"""
-
+# Set host ip to whatever your local IP address is to host externally
 httpd = ThreadedHTTPServer(('localhost', 80), Handler)
 
 try:
