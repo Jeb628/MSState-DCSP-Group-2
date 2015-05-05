@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Untitled 1</title>
+</head>
+
+<form action="custom.asp?">
+
+	<script type="text/javascript">
+	function showfields(name)
+	{
+  		if(name == "Baseball")
+  		{
+  			var y = document.getElementsByName("batHand");
+			y.type= "text";	
+		}
+  		if(name == "Basketball")
+  		{
+  		}
+  		
+		if(name == "Football")
+		{
+		}
+
+  	}
+	</script>
+	<label>Sport:</label>
+	<select name="sport" onchange="showfields(this.options[this.selectedIndex].value)">
+	<option>Baseball</option>
+	<option>Basketball</option>
+	<option>Football</option>
+	</select>
+	
+	<br>
+	
+	<label>Name:</label> 
+	<input name="name"></input>
+	
+	<br>
+
+	<label>Team:</label> 
+	<input name="team"></input> 
+	
+	<br>
+	
+	<label>Age:</label> 
+	<input name="age"></input>
+	
+	<br>
+
+	<label>Hometown:</label> 
+	<input name="hometown"></input> 
+	
+	<br>
+	
+	<label>Heght:</label> 
+	<input name="height"></input>
+	
+	<br>
+
+	<label>Weight:</label> 
+	<input name="weight"></input> 
+	
+	<br>
+	
+	<label>Years of experienc:</label> 
+	<input name="yearsOfExp"></input>
+	
+	<br>
+	
+	<label>Jersey Number:</label> 
+	<input name="jerseyNumber"></input>
+	
+	<br>
+	
+	<label>Postition:</label> 
+	<input name="position"></input> 
+	
+	<br>
+	
+	<label>Bat Hand:</label> 
+	<input type="hidden" name="batHand"></input> 
+	
+	<br>
+	
+	<label>Pitch Hand:</label> 
+	<input type="hidden" name="pitchHand"></input> 
+	
+	<br>
+	
+	<label>Batting Average:</label> 
+	<input name="average"></input> 
+	
+	<br>
+	
+	<label>Homeruns:</label> 
+	<input name="homerun"></input> 
+	
+	<br>
+	
+	<label>RBIs:</label> 
+	<input name="runBattedIn"></input> 
+	
+	<br>
+	
+	<label>OBP:</label> 
+	<input name="onBasePercent"></input> 
+	
+	<br>
+	
+	<label>Wins:</label> 
+	<input name="W"></input> 
+	
+	<br>
+	
+	<label>Losses:</label> 
+	<input name="L"></input> 
+	
+	<br>
+	
+	<label>W/L Percentage:</label> 
+	<input name="WLPER"></input> 
+	
+	<br>
+	
+	<label>ERA:</label> 
+	<input name="ERA"></input>
+	
+	<br>
+	
+	<label>PPG:</label> 
+	<input name="pointsPerGame"></input>
+	
+	<br>
+	
+	<label>APG:</label> 
+	<input name="assistsPerGame"></input>
+
+	<br>
+	
+	<label>RPG:</label> 
+	<input name="reboundsPerGame"></input>
+	
+	<br>
+	
+	<label>Touchdowns:</label> 
+	<input name="touchDowns"></input>
+	
+	<br>
+	
+	<label>INT:</label> 
+	<input name="interceptions"></input>
+	
+	<br>
+	
+	<label>Passing Yards:</label> 
+	<input name="yardsPassing"></input>
+
+	<br>
+	
+	<label>Rushing Yards:</label> 
+	<input name="yardsRun"></input>
+	
+	<br>
+	
+	<label>Recieving Yards:</label> 
+	<input name="yardsRecieved"></input>
+	
+	<br>
+	
+	<label>Fumbles:</label> 
+	<input name="fumbles"></input>
+	
+	<br>
+	
+	<label>Sacks:</label> 
+	<input name="sacks"></input>
+
+
+</form>
+<body>
+
+</body>
+
+</html>
