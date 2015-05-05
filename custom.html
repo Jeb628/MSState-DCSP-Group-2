@@ -9,25 +9,41 @@
 <form action="custom.asp?">
 
 	<script type="text/javascript">
+	
+	function hideQuery() 
+  	{
+		document.getElementById("baseball").style.display = 'none';
+		document.getElementById("basketball").style.display = 'none';
+		document.getElementById("football").style.display = 'none';
+	}
+
 	function showfields(name)
 	{
   		if(name == "Baseball")
   		{
-  			var y = document.getElementsByName("batHand");
-			y.type= "text";	
+  			document.getElementById("baseball").style.display = 'inline';
+			document.getElementById("basketball").style.display = 'none';
+			document.getElementById("football").style.display = 'none';
 		}
   		if(name == "Basketball")
   		{
+  			document.getElementById("baseball").style.display = 'none';
+			document.getElementById("basketball").style.display = 'inline';
+			document.getElementById("football").style.display = 'none';
   		}
-  		
 		if(name == "Football")
 		{
+			document.getElementById("baseball").style.display = 'none';
+			document.getElementById("basketball").style.display = 'none';
+			document.getElementById("football").style.display = 'inline';
 		}
 
   	}
+  	
 	</script>
 	<label>Sport:</label>
-	<select name="sport" onchange="showfields(this.options[this.selectedIndex].value)">
+	<select id="sport" onchange="showfields(this.options[this.selectedIndex].value)">
+	<option disabled="disabled" selected="selected" value=""></option>	
 	<option>Baseball</option>
 	<option>Basketball</option>
 	<option>Football</option>
@@ -36,151 +52,156 @@
 	<br>
 	
 	<label>Name:</label> 
-	<input name="name"></input>
+	<input id="name"></input>
 	
 	<br>
 
 	<label>Team:</label> 
-	<input name="team"></input> 
+	<input id="team"></input> 
 	
 	<br>
 	
 	<label>Age:</label> 
-	<input name="age"></input>
+	<input id="age"></input>
 	
 	<br>
 
 	<label>Hometown:</label> 
-	<input name="hometown"></input> 
+	<input id="hometown"></input> 
 	
 	<br>
 	
 	<label>Heght:</label> 
-	<input name="height"></input>
+	<input id="height"></input>
 	
 	<br>
 
 	<label>Weight:</label> 
-	<input name="weight"></input> 
+	<input id="weight"></input> 
 	
 	<br>
 	
 	<label>Years of experienc:</label> 
-	<input name="yearsOfExp"></input>
+	<input id="yearsOfExp"></input>
 	
 	<br>
 	
 	<label>Jersey Number:</label> 
-	<input name="jerseyNumber"></input>
+	<input id="jerseyNumber"></input>
 	
 	<br>
 	
 	<label>Postition:</label> 
-	<input name="position"></input> 
+	<input id="position"></input> 
 	
 	<br>
+	<div id="baseball">
+		<label>Bat Hand:</label> 
+		<input id="batHand"></input> 
 	
-	<label>Bat Hand:</label> 
-	<input type="hidden" name="batHand"></input> 
+		<br>
 	
-	<br>
+		<label>Pitch Hand:</label> 
+		<input id="pitchHand"></input> 
 	
-	<label>Pitch Hand:</label> 
-	<input type="hidden" name="pitchHand"></input> 
+		<br>
 	
-	<br>
+		<label>Batting Average:</label> 
+		<input id="average"></input> 
 	
-	<label>Batting Average:</label> 
-	<input name="average"></input> 
+		<br>
 	
-	<br>
+		<label>Homeruns:</label> 
+		<input id="homerun"></input> 
 	
-	<label>Homeruns:</label> 
-	<input name="homerun"></input> 
+		<br>
 	
-	<br>
+		<label>RBIs:</label> 
+		<input id="runBattedIn"></input> 
 	
-	<label>RBIs:</label> 
-	<input name="runBattedIn"></input> 
+		<br>
 	
-	<br>
+		<label>OBP:</label> 
+		<input id="onBasePercent"></input> 
+		
+		<br>
+		
+		<label>Wins:</label> 
+		<input id="W"></input> 
+		
+		<br>
+		
+		<label>Losses:</label> 
+		<input id="L"></input> 
+		
+		<br>
+		
+		<label>W/L Percentage:</label> 
+		<input id="WLPER"></input> 
+		
+		<br>
+		
+		<label>ERA:</label> 
+		<input id="ERA"></input>
+	</div>	
 	
-	<label>OBP:</label> 
-	<input name="onBasePercent"></input> 
+	<div id="basketball">
+		<label>PPG:</label> 
+		<input id="pointsPerGame"></input>
+		
+		<br>
+		
+		<label>APG:</label> 
+		<input id="assistsPerGame"></input>
 	
-	<br>
+		<br>
+		
+		<label>RPG:</label> 
+		<input id="reboundsPerGame"></input>
+		
+		<br>
+		
+	</div>
 	
-	<label>Wins:</label> 
-	<input name="W"></input> 
+	<div id="football">
 	
-	<br>
+		<label>Touchdowns:</label> 
+		<input id="touchDowns"></input>
+		
+		<br>
+		
+		<label>INT:</label> 
+		<input id="interceptions"></input>
+		
+		<br>
+		
+		<label>Passing Yards:</label> 
+		<input id="yardsPassing"></input>
 	
-	<label>Losses:</label> 
-	<input name="L"></input> 
-	
-	<br>
-	
-	<label>W/L Percentage:</label> 
-	<input name="WLPER"></input> 
-	
-	<br>
-	
-	<label>ERA:</label> 
-	<input name="ERA"></input>
-	
-	<br>
-	
-	<label>PPG:</label> 
-	<input name="pointsPerGame"></input>
-	
-	<br>
-	
-	<label>APG:</label> 
-	<input name="assistsPerGame"></input>
-
-	<br>
-	
-	<label>RPG:</label> 
-	<input name="reboundsPerGame"></input>
-	
-	<br>
-	
-	<label>Touchdowns:</label> 
-	<input name="touchDowns"></input>
-	
-	<br>
-	
-	<label>INT:</label> 
-	<input name="interceptions"></input>
-	
-	<br>
-	
-	<label>Passing Yards:</label> 
-	<input name="yardsPassing"></input>
-
-	<br>
-	
-	<label>Rushing Yards:</label> 
-	<input name="yardsRun"></input>
-	
-	<br>
-	
-	<label>Recieving Yards:</label> 
-	<input name="yardsRecieved"></input>
-	
-	<br>
-	
-	<label>Fumbles:</label> 
-	<input name="fumbles"></input>
-	
-	<br>
-	
-	<label>Sacks:</label> 
-	<input name="sacks"></input>
+		<br>
+		
+		<label>Rushing Yards:</label> 
+		<input id="yardsRun"></input>
+		
+		<br>
+		
+		<label>Recieving Yards:</label> 
+		<input id="yardsRecieved"></input>
+		
+		<br>
+		
+		<label>Fumbles:</label> 
+		<input id="fumbles"></input>
+		
+		<br>
+		
+		<label>Sacks:</label> 
+		<input id="sacks"></input>
+	</div>
 
 
 </form>
-<body>
+<body onload="hideQuery()">
 
 </body>
 
