@@ -37,10 +37,10 @@ CREATE TABLE `basketball` (
 CREATE TABLE `baseball` (
   `batHand` varchar(1) DEFAULT NULL,
   `pitchHand` varchar(1) DEFAULT NULL,
-  `average` varchar(3,3) DEFAULT NULL,
+  `average` varchar(11) DEFAULT NULL,
   `homerun` varchar(11) DEFAULT NULL,
   `runBattedIn` varchar(11) DEFAULT NULL,
-  `onBasePercent` decimal(4,3) DEFAULT NULL,
+  `onBasePercent` varchar(4,3) DEFAULT NULL,
   `W` varchar(11) DEFAULT NULL,
   `L` varchar(11) DEFAULT NULL,
   `WLPER` varchar(45) DEFAULT NULL,
