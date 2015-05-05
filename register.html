@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="sportistyle.css">
+
+<title>Register</title>
+</head>
+
+<body>
+<!-- Title -->
+<img class="displayed" src="Sportilogo.png" alt="Sportistats" style="width:419px;height:93px;">
+
+<!-- Login Form -->
+<form method="post" action="localhost">
+	<div class="auto-style1">
+<input id="username" name="username" value="Username" onclick='getElementById("username").setAttribute("value", "")' type="text" />
+<input id="password" name="password" value="Password" onclick='getElementById("password").setAttribute("value", "")' type="password" />
+<input name="submit" type="submit" value="Login" />
+</div>
+</form>
+
+<!-- Tabs -->
+<table >
+<tr>
+<td> <input type="button" onclick="footballTable()" value="Football"> </td>
+<td> <input type="button" onclick="baseballTable()" value="Baseball"> </td>
+<td> <input type="button" onclick="basketballTable()" value="Basketball"> </td>
+</tr>
+</table>
+
+<hr />
+<br>
+<br>
+
+
+<!-- Register Form -->
+<form style="text-align:center" action="register.aspx?">
+<label>Username</label> <input name="Username" type="text" required="required"> <br>
+<label>Password</label> <input name="Password" type="password" required="required"><br>
+<br>
+<input type="submit" value="Register">
+</form>
+
+</body>
+
+</html>
