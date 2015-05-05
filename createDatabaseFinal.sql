@@ -19,7 +19,7 @@ CREATE TABLE `player` (
   PRIMARY KEY (`playerID`),
   KEY `userName_idx` (`createdBy`),
   CONSTRAINT `createdBy` FOREIGN KEY (`createdBy`) REFERENCES `user` (`username`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8 COMMENT='Table of player records.';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='Table of player records.';
 CREATE TABLE `favorite` (
   `fv_username` varchar(15) NOT NULL,
   `fv_playerID` int(10) NOT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE `baseball` (
   `average` varchar(11) DEFAULT NULL,
   `homerun` varchar(11) DEFAULT NULL,
   `runBattedIn` varchar(11) DEFAULT NULL,
-  `onBasePercent` varchar(4,3) DEFAULT NULL,
+  `onBasePercent` varchar(11) DEFAULT NULL,
   `W` varchar(11) DEFAULT NULL,
   `L` varchar(11) DEFAULT NULL,
   `WLPER` varchar(45) DEFAULT NULL,
