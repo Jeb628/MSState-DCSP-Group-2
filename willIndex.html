@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="sportistyle.css">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+<title>Sportistats</title>
+<link rel="stylesheet" type="text/css" href="jquery.dataTables.css"></link>
+<script type="text/javascript" language="javascript" src="jquery-1.11.1.min.js"></script>
+<script type="text/javascript" language="javascript" src="jquery.dataTables.min.js"></script>
+
+
+</head>
+
+<body onload=hideQuery()>
+
+<!-- Javascript -->
+<script type="text/javascript" language="javascript">
+function hideQuery() 
+{
+	document.getElementById("query2").style.display = 'none';
+	document.getElementById("q2op").style.display = 'none';
+	document.getElementById("q2num").style.display = 'none';
+	document.getElementById("query3").style.display = 'none';
+	document.getElementById("q3op").style.display = 'none';
+	document.getElementById("q3num").style.display = 'none';
+	document.getElementById("q1statBaseball").style.display = 'none';
+	document.getElementById("q1statBasketball").style.display = 'none';
+	document.getElementById("q1statFootball").style.display = 'none';
+	document.getElementById("q2statBaseball").style.display = 'none';
+	document.getElementById("q2statBasketball").style.display = 'none';
+	document.getElementById("q2statFootball").style.display = 'none';
+	document.getElementById("q3statBaseball").style.display = 'none';
+	document.getElementById("q3statBasketball").style.display = 'none';
+	document.getElementById("q3statFootball").style.display = 'none';
+}
+
+
+var sport = "";
+
+function addQuery() 
+{
+	if (document.getElementById("query2").style.display == 'none') 
+	{
+		document.getElementById("query2").style.display = 'inline';
+		document.getElementById("q2op").style.display = 'inline';
+		document.getElementById("q2num").style.display = 'inline';
+		showfieldsq2(sport);
+	}
+	else if (document.getElementById("query3").style.display == 'none') 
+	{
+		document.getElementById("query3").style.display = 'inline';
+		document.getElementById("q3op").style.display = 'inline';
+		document.getElementById("q3num").style.display = 'inline';
+		showfieldsq3(sport);
+	}
+}
+
+function showfieldsq1(name)
+{
+	sport = name;
+	if(name == "Baseball")
+	{
+
+		document.getElementById("q1statBaseball").style.display = 'inline';
+		document.getElementById("q1statBasketball").style.display = 'none';
+		document.getElementById("q1statFootball").style.display = 'none';
+	}
+	if(name == "Basketball")
+	{
+		document.getElementById("q1statBaseball").style.display = 'none';
+		document.getElementById("q1statBasketball").style.display = 'inline';
+		document.getElementById("q1statFootball").style.display = 'none';
+	}
+	if(name == "Football")
+	{
+		document.getElementById("q1statBaseball").style.display = 'none';
+		document.getElementById("q1statBasketball").style.display = 'none';
+		document.getElementById("q1statFootball").style.display = 'inline';
+	}
+
+}
+
+function showfieldsq2(name)
+{
+
+	if(name == "Baseball")
+	{
+
+		document.getElementById("q2statBaseball").style.display = 'inline';
+		document.getElementById("q2statBasketball").style.display = 'none';
+		document.getElementById("q2statFootball").style.display = 'none';
+	}
+	if(name == "Basketball")
+	{
+		document.getElementById("q2statBaseball").style.display = 'none';
+		document.getElementById("q2statBasketball").style.display = 'inline';
+		document.getElementById("q2statFootball").style.display = 'none';
+	}
+	if(name == "Football")
+	{
+		document.getElementById("q2statBaseball").style.display = 'none';
+		document.getElementById("q2statBasketball").style.display = 'none';
+		document.getElementById("q2statFootball").style.display = 'inline';
+	}
+
+}
+
+function showfieldsq3(name)
+{
+
+	if(name == "Baseball")
+	{
+
+		document.getElementById("q3statBaseball").style.display = 'inline';
+		document.getElementById("q3statBasketball").style.display = 'none';
+		document.getElementById("q3statFootball").style.display = 'none';
+	}
+	if(name == "Basketball")
+	{
+		document.getElementById("q3statBaseball").style.display = 'none';
+		document.getElementById("q3statBasketball").style.display = 'inline';
+		document.getElementById("q3statFootball").style.display = 'none';
+	}
+	if(name == "Football")
+	{
+		document.getElementById("q3statBaseball").style.display = 'none';
+		document.getElementById("q3statBasketball").style.display = 'none';
+		document.getElementById("q3statFootball").style.display = 'inline';
+	}
+
+}
+
+
+
+</script>
+
+<!-- Title -->
+<img class="displayed" src="Sportilogo.png" alt="Sportistats" style="width:419px;height:93px;">
+
+<!-- Login Form -->
+<form method="post" action="/login.aspx?">
+	<div class="auto-style1">
+<label name ="username">Welcome back you!</label>
+<input name="submit" type="submit" value="Login" />
+</div>
+</form>
+
+<!-- Tabs -->
+<table>
+<tr>
+<td> <form action = "/foot.aspx?"><button type="submit">Football</button> </form> </td>
+<td> <form action = "/base.aspx?"><button type="submit">Baseball</button> </form> </td>
+<td> <form action = "/bask.aspx?"><button type="submit">Basketball</button> </form> </td>
+</tr>
+</table>
+
+<hr />
+<br>
+<br>
+<!-- Tables -->
+<table cellpadding="0" cellspacing="0" border="0" class="display dataTable no-footer" id="football">
+
+</table>
+
+
+
+<!-- Search by player name -->
+<form id="search" method="post" action="/search.aspx?">
+<div align = "center">
+<input id="searchbar" name="Search" type="text" value="Search by Player Name" size="50" onclick='getElementById("searchbar").setAttribute("value", "")' required/>
+<input name="Submit" type="submit" value="Search" />
+<div/>
+</form>
+
+
+<br>
+<br>
+
+<!-- Query Form -->
+<form id="query" class="blocktext" method="post" action="/query.aspx?">
+<div align = "center">
+<input type="button" value="+" onclick=addQuery()>
+
+<!-- Query_1 -->
+<select name="q1sport" onchange="showfieldsq1(this.options[this.selectedIndex].value)">
+	<option disabled="disabled" selected="selected" value=""></option>	
+	<option>Football</option>
+	<option>Baseball</option>
+	<option>Basketball</option>
+</select>
+<select name="q1stat" id="q1statFootball">
+	<option disabled="disabled" selected="selected" value=""></option>	
+	<option id="touchDowns">Touchdowns</option>
+	<option id="interceptions">Interception</option>
+	<option id="yardsPassing">Passing Yards</option>
+	<option id="yardsRun">Rushing Yards</option>
+	<option id="yardsRecieved">Recieving Yards</option>
+	<option id="fumbles">Fumbles</option>
+	<option id="sacks">Sacks</option>
+</select>
+<select name="q1stat" id="q1statBasketball" onchange="showfieldsDropDown(this.options[this.selectedIndex].value)">
+	<option disabled="disabled" selected="selected" value=""></option>	
+	<option id="pointsPerGame">PPG</option>
+	<option id="assistsPerGame">APG</option>
+	<option id="reboundsPerGame">RPG</option>
+</select>
+<select name="q1stat" id="q1statBaseball" onchange="showfieldsDropDown(this.options[this.selectedIndex].value)">
+	<option disabled="disabled" selected="selected" value=""></option>	
+	<option id="batHand">Bat Hand</option>
+	<option id="pitchHand">Pitch Hand</option>
+	<option id="average">Batting Average</option>
+	<option id="homerun">Homeruns</option>
+	<option id="runBattedIn">RBIs</option>
+	<option id="onBasePercent">OBP</option>
+	<option id="W">W</option>
+	<option id="L">L</option>
+	<option id="WLPER">W/L%</option>
+	<option id="ERA">ERA</option>
+</select>
+<select name = "q1op">
+	<option value="&lt" selected="selected">&lt;</option>
+	<option value="&gt">&gt;</option>
+	<option value="=">=</option>
+</select>
+
+<input id="number" type="number" name="q1num"  min="0" max="3000" step="1">
+<input type="submit" value="Query">
+
+
+<br>
+
+<!-- Query_2 -->
+<select id="query2" name="q2cmp">
+	<option id="and" selected="selected">And</option>
+	<option id="or">Or</option>
+</select>
+<select name="q2stat" id="q2statFootball">
+	<option disabled="disabled" selected="selected" value=""></option>	
+	<option id="touchDowns">Touchdowns</option>
+	<option id="interceptions">Interception</option>
+	<option id="yardsPassing">Passing Yards</option>
+	<option id="yardsRun">Rushing Yards</option>
+	<option id="yardsRecieved">Recieving Yards</option>
+	<option id="fumbles">Fumbles</option>
+	<option id="sacks">Sacks</option>
+</select>
+<select name="q2stat" id="q2statBasketball" onchange="showfieldsDropDown(this.options[this.selectedIndex].value)">
+	<option disabled="disabled" selected="selected" value=""></option>	
+	<option id="pointsPerGame">PPG</option>
+	<option id="assistsPerGame">APG</option>
+	<option id="reboundsPerGame">RPG</option>
+</select>
+<select name="q2stat" id="q2statBaseball" onchange="showfieldsDropDown(this.options[this.selectedIndex].value)">
+	<option disabled="disabled" selected="selected" value=""></option>	
+	<option id="batHand">Bat Hand</option>
+	<option id="pitchHand">Pitch Hand</option>
+	<option id="average">Batting Average</option>
+	<option id="homerun">Homeruns</option>
+	<option id="runBattedIn">RBIs</option>
+	<option id="onBasePercent">OBP</option>
+	<option id="W">W</option>
+	<option id="L">L</option>
+	<option id="WLPER">W/L%</option>
+	<option id="ERA">ERA</option>
+</select>
+<select id="q2op" name="q2op">
+	<option value="&lt" selected="selected">&lt;</option>
+	<option value="&gt">&gt;</option>
+	<option value="=">=</option>
+</select>
+
+<input id="q2num" type="number" name="q2num" min="0" max="3000" step="1" >
+
+<br>
+
+<!-- Query3 -->
+<select id="query3" name = "q3cmp">
+	<option id="and" selected="selected">And</option>
+	<option id="or">Or</option>
+</select>
+<select name="q3stat" id="q3statFootball">
+	<option disabled="disabled" selected="selected" value=""></option>	
+	<option id="touchDowns">Touchdowns</option>
+	<option id="interceptions">Interception</option>
+	<option id="yardsPassing">Passing Yards</option>
+	<option id="yardsRun">Rushing Yards</option>
+	<option id="yardsRecieved">Recieving Yards</option>
+	<option id="fumbles">Fumbles</option>
+	<option id="sacks">Sacks</option>
+</select>
+<select name="q3stat" id="q3statBasketball" onchange="showfieldsDropDown(this.options[this.selectedIndex].value)">
+	<option disabled="disabled" selected="selected" value=""></option>	
+	<option id="pointsPerGame">PPG</option>
+	<option id="assistsPerGame">APG</option>
+	<option id="reboundsPerGame">RPG</option>
+</select>
+<select name="q3stat" id="q3statBaseball" onchange="showfieldsDropDown(this.options[this.selectedIndex].value)">
+	<option disabled="disabled" selected="selected" value=""></option>	
+	<option id="batHand">Bat Hand</option>
+	<option id="pitchHand">Pitch Hand</option>
+	<option id="average">Batting Average</option>
+	<option id="homerun">Homeruns</option>
+	<option id="runBattedIn">RBIs</option>
+	<option id="onBasePercent">OBP</option>
+	<option id="W">W</option>
+	<option id="L">L</option>
+	<option id="WLPER">W/L%</option>
+	<option id="ERA">ERA</option>
+</select>
+<select id="q3op" name="q3op" >
+	<option value="&lt" selected="selected">&lt;</option>
+	<option value="&gt">&gt;</option>
+	<option value="=">=</option>
+</select>
+
+<input id="q3num" type="number" name="q3num"  min="0" max="3000" step="1" >
+<br>
+</div>
+</form>
+<br>
+<br>
+<br>
+<!-- Ancillary Website Information -->
+<pre class="blocktext">
+Developed by:				
+Jacob Burrell
+Alexander Monet
+Will McRae
+Zach Gibbs
+</pre>
+
+
+</body>
+
+</html>
