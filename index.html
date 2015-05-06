@@ -19,83 +19,6 @@
 <!-- Javascript -->
 <script type="text/javascript" language="javascript">
 
-
-$(function tables() { 
-    $('#football').dataTable( {
-        "data": football,
-        "columns": [
-            { "title": "Name" },
-            { "title": "Team" },
-            { "title": "Age" },
-            { "title": "Hometown"},
-            { "title": "Height"},
-			{ "title": "Weight" },
-            { "title": "Years" },
-            { "title": "Player ID" },
-            { "title": "Jersey"},
-			{ "title": "Position" },
-            { "title": "Created By" },
-            { "title": "Touchdown" },
-            { "title": "Interception"},
-			{ "title": "Yards Passing" },
-            { "title": "Yards Run" },
-            { "title": "Yards Received" },
-            { "title": "Fumbles"},
-			{ "title": "Sacks" },
-            { "title": "FB_PlayerID" }
-        ]
-    } ); 
- 
-    $('#baseball').dataTable( {
-        "data": baseball,
-        "columns": [
-            { "title": "Name" },
-            { "title": "Team" },
-            { "title": "Age" },
-            { "title": "Hometown"},
-            { "title": "Height"},
-			{ "title": "Weight" },
-            { "title": "Years" },
-            { "title": "Player ID" },
-            { "title": "Jersey"},
-			{ "title": "Position" },
-            { "title": "Created By" },
-            { "title": "Bat Hand" },
-            { "title": "Pitch Hand"},
-			{ "title": "Average" },
-            { "title": "Homerun" },
-            { "title": "Run Batted In" },
-            { "title": "On Base Percentage"},
-			{ "title": "Win" },
-            { "title": "Loss" },
-            { "title": "WPER" },
-            { "title": "ERA" },
-            { "title": "bs_playerID" }
-        ]
-    } ); 
-	
- 
-    $('#basketball').dataTable( {
-        "data": basketball,
-        "columns": [
-            { "title": "Name" },
-            { "title": "Team" },
-            { "title": "Age" },
-            { "title": "Hometown"},
-            { "title": "Height"},
-			{ "title": "Weight" },
-            { "title": "Years" },
-            { "title": "Player ID" },
-            { "title": "Jersey"},
-			{ "title": "Position" },
-            { "title": "Created By" },
-            { "title": "Points Per Game" },
-            { "title": "Assists per Game"},
-			{ "title": "Rebounds per Game" },
-            { "title": "bk_playerID" }
-        ]
-    } ); 
-} );
 function hideQuery() {
 document.getElementById("query2").style.display = 'none';
 document.getElementById("q2sport").style.display = 'none';
@@ -107,9 +30,6 @@ document.getElementById("q3sport").style.display = 'none';
 document.getElementById("q3stat").style.display = 'none';
 document.getElementById("q3op").style.display = 'none';
 document.getElementById("q3num").style.display = 'none';
-document.getElementById("footballTable").style.display = 'inline';
-document.getElementById("baseballTable").style.display = 'none';
-document.getElementById("basketballTable").style.display = 'none';
 }
 function football() {
 var x=document.getElementById("stat1");
@@ -285,21 +205,6 @@ else if (document.getElementById("query3").style.display == 'none') {
 	return 0;
 }
 }
-function footballTable() {
-document.getElementById("football").style.display = 'inline';
-document.getElementById("baseball").style.display = 'none';
-document.getElementById("basketball").style.display = 'none';
-}
-function baseballTable() {
-document.getElementById("football").style.display = 'none';
-document.getElementById("baseball").style.display = 'inline';
-document.getElementById("basketball").style.display = 'none';
-}
-function basketballTable(){
-document.getElementById("football").style.display = 'none';
-document.getElementById("baseball").style.display = 'none';
-document.getElementById("basketball").style.display = 'inline';
-}
 </script>
 
 <!-- Title -->
@@ -308,8 +213,7 @@ document.getElementById("basketball").style.display = 'inline';
 <!-- Login Form -->
 <form method="post" action="/login.aspx?">
 	<div class="auto-style1">
-<input id="username" name="username" value="Username" onclick='getElementById("username").setAttribute("value", "")' type="text" />
-<input id="password" name="password" value="Password" onclick='getElementById("password").setAttribute("value", "")' type="password" />
+<label name ="username">Welcome back you!</label>
 <input name="submit" type="submit" value="Login" />
 </div>
 </form>
@@ -317,9 +221,9 @@ document.getElementById("basketball").style.display = 'inline';
 <!-- Tabs -->
 <table>
 <tr>
-<td> <input type="button" onclick="footballTable()" value="Football"> </td>
-<td> <input type="button" onclick="baseballTable()" value="Baseball"> </td>
-<td> <input type="button" onclick="basketballTable()" value="Basketball"> </td>
+<td> <form action = "/foot.aspx?"><button type="submit">Football</button> </form> </td>
+<td> <form action = "/base.aspx?"><button type="submit">Baseball</button> </form> </td>
+<td> <form action = "/bask.aspx?"><button type="submit">Basketball</button> </form> </td>
 </tr>
 </table>
 
@@ -330,15 +234,7 @@ document.getElementById("basketball").style.display = 'inline';
 <table cellpadding="0" cellspacing="0" border="0" class="display dataTable no-footer" id="football">
 
 </table>
-<hr/>
-<table cellpadding="0" cellspacing="0" border="0" class="display dataTable no-footer" id="baseball">
 
-</table>
-<hr/>
-<table cellpadding="0" cellspacing="0" border="0" class="display dataTable no-footer" id="basketball">
-
-</table>
-<hr/>
 
 
 <!-- Search by player name -->
