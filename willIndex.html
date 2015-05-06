@@ -2,7 +2,7 @@
 <html>
 
 <head>
-<link rel="stylesheet" type="text/css" href="sportistyle.css">
+
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 
 <title>Sportistats</title>
@@ -34,6 +34,8 @@ function hideQuery()
 	document.getElementById("q3statBaseball").style.display = 'none';
 	document.getElementById("q3statBasketball").style.display = 'none';
 	document.getElementById("q3statFootball").style.display = 'none';
+	document.getElementById("addButton").style.display = 'none';
+
 }
 
 
@@ -60,6 +62,8 @@ function addQuery()
 function showfieldsq1(name)
 {
 	sport = name;
+	document.getElementById("addButton").style.display = 'inline';
+
 	if(name == "Baseball")
 	{
 
@@ -181,7 +185,7 @@ function showfieldsq3(name)
 <!-- Query Form -->
 <form id="query" class="blocktext" method="post" action="/query.aspx?">
 <div align = "center">
-<input type="button" value="+" onclick=addQuery()>
+<input id="addButton" type="button" value="+" onclick=addQuery()>
 
 <!-- Query_1 -->
 <select name="q1sport" onchange="showfieldsq1(this.options[this.selectedIndex].value)">
